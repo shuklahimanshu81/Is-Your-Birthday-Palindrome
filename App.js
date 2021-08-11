@@ -1,7 +1,7 @@
 var birthday = document.querySelector("#birthday");
 var checkBtn = document.querySelector("#checkBtn");
 var result = document.querySelector("#result");
-
+var timer = document.querySelector("#timer");
 
 checkBtn.addEventListener('click', clickHandler);
 
@@ -22,9 +22,18 @@ function clickHandler() {
         result.innerText = "your birthday is palindroome";
        }
      if(!isPalindrome){
+        checkBtn.style.display ="none";
+        timer.style.display = "block" ; 
       var  nextPalindrome = nextPalindromeDate(date);
-      result.innerText = "Oops! You missed palindrome birthday " + nextPalindrome[0] +" by " + nextPalindrome[1] + " days ";
+     setTimeout( function()
+     {         
+         result.innerText = "Oops! Your birthdate is not palindrome. Nearest palindrome date is " + nextPalindrome[0] + ". You missed it by " + nextPalindrome[1] + " days." ;
+         result.style.display = "block";
+    timer.style.display = "none";    
+    },3200) 
+
      }
+     
      
 }
 

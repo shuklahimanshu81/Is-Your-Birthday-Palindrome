@@ -5,13 +5,49 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Is Your Birthday Palindrome</title>
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-     <h1> Is Your Birthday Palindrome or not?</h1>
-     <label for="birthday">Enter your birthday </label>
-     <input id="birthday" type="date">
-     <button id="checkBtn"> Check </button> 
-     <div id="result"></div>
+    <section id="head-div">
+        <nav>
+            <a id="repo" href="https://github.com/shuklahimanshu81/Is-Your-Birthday-Palindrome"> Github Repo </a>
+        </nav>
+        <div >
+            <h1> Let's know your <span style="color: white;"> Birthday</span>  is<span style="color: white;"> Palindrome</span> or not?
+            </h1>
+            <p id="intro-para">
+                Do You know what is Palindrome?<br><br>
+             Palindrome is a word or number which reads same 
+                backwards as forward.
+            </p>
+            <a id="link-1" href="#main-div">
+                Let's Do It.
+            </a>
+        </div>   
+    </section>
+    
+    <div id="main-div">
+        <h1> Enter your <span style="color: white;"> Birthday</span> and we will tell you if it is a <span style="color: white;"> Palindrome.</span> </h1>
+
+        <p id="detail-para"> This app checks your birthdate in 6 formats dd-mm-yyyy,mm-dd-yyyy ,yyyy-dd-mm,yyyy-mm-dd,dd-mm-yy, mm-dd-yy
+            e.g. if your birthdate is 01 Aug 1995, then app will check for 01081995, 08011995, 19950108, 19950801, 010895,080195. </p>  
+        <input id="birthday" type="date">
+        <button id="checkBtn"> Check </button> 
+        <div id="timer"><img src="/giphy.webp"></div>
+        <div id="result"></div>
+    </div>
+    
+    <div>
+        <footer class="footer">
+            <div class="footer-header"> Socia Media  </div>
+            <ul class="social links">
+                <li class="list-item-inline"> <a class="link" href="https://github.com/shuklahimanshu81">  Github </a> </li>
+                <li class="list-item-inline"> <a class="link" href="https://twitter.com/Developer__dude"> Twitter </a> </li>
+                <li class="list-item-inline"> <a class="link" href="https://www.linkedin.com/in/himanshu-shukla-26003a182/"> LinkedIn </a> </li>
+                <li class="list-item-inline"> <a class="link" href="https://shuklahim.netlify.app">  Portfolio </a> </li>
+            </ul>
+        </footer>
+    </div>
 
 
 
