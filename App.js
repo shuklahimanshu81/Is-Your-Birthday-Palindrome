@@ -8,7 +8,6 @@ checkBtn.addEventListener('click', clickHandler);
 
 function clickHandler() {
     const dob = birthday.value.split('-');
-    console.log(dob)
     var date = {
         day : dob[2],
         month: dob[1],
@@ -20,41 +19,49 @@ function clickHandler() {
       
       var isPalindrome = checkPalindrome(dobCombinations);
       if(isPalindrome){
-          console.log("your birthday is palindroome");
+        result.innerText = "your birthday is palindroome";
        }
      if(!isPalindrome){
-         nextPalindromeDate(date);
+      var  nextPalindrome = nextPalindromeDate(date);
+      result.innerText = "Oops! You missed palindrome birthday " + nextPalindrome[0] +" by " + nextPalindrome[1] + " days ";
      }
      
 }
 
 
 function dateCombination( dd,mm,yyyy ){
-   console.log(typeof dd);
-    var ddmmyyyy = dd + mm + yyyy ;
-    var mmddyyyy =   mm +dd + yyyy ;
-    var yyyyddmm =  yyyy +dd + mm ;
-    var yyyymmdd =  yyyy  +  mm  +dd ;
-    var ddmmyy = dd  +  mm  +  yyyy.slice(-2);
-    var mmddyy  =  mm  + dd  +  yyyy.slice(-2);
-    return [ ddmmyyyy,mmddyyyy ,yyyyddmm,yyyymmdd,ddmmyy, mmddyy]
+    var ddmmyyyy = dd.toString()+ mm.toString()+ yyyy.toString();
+    var mmddyyyy =   mm.toString()+ dd.toString()+ yyyy.toString();
+    var yyyyddmm =  yyyy.toString()+ dd.toString()+ mm.toString();
+    var yyyymmdd =  yyyy.toString() +  mm.toString() + dd.toString();
+    var ddmmyy = dd.toString() +  mm.toString() +  yyyy.toString().slice(-2);
+    var mmddyy  =  mm.toString() + dd.toString() +  yyyy.toString().slice(-2);
+    return [ ddmmyyyy,mmddyyyy ,yyyyddmm,yyyymmdd,ddmmyy, mmddyy];
 }
 
 function nextPalindromeDate(date){
  var futurePalindrome =  possiblePalindromeInFuture(date);
- console.log(futurePalindrome);
+ var pastPalindrome = possiblePalindromeInPast(date);
+ if(futurePalindrome[1] < pastPalindrome[1]){
+     return futurePalindrome;
+ }
+ else{
+     return pastPalindrome;
+ }
+ 
 }
 
 
 function possiblePalindromeInFuture(date){
- var   dayIs = Number(date.day)
- var   monthIs = Number(date.month)
- var   yearIs = Number(date.year)
+ var   dayIs = Number(date.day);
+ var   monthIs = Number(date.month);
+ var   yearIs = Number(date.year);
  var  isTrue = true;
  var differenceOfDays = 0;
+ var daysInMonth = checkLeapYear(yearIs);
  
  while(isTrue){
-     var daysInMonth = checkLeapYear(yearIs);
+     
      dayIs = dayIs +1;
      if(dayIs > daysInMonth[monthIs - 1]){
          dayIs = 1;
@@ -62,14 +69,15 @@ function possiblePalindromeInFuture(date){
          if( monthIs > 12){
              monthIs = 1;
              yearIs = yearIs +1;
+             daysInMonth = checkLeapYear(yearIs);
          }
      }
 
-    isTrue = !(checkPalindrome(dateCombination(dayIs.toString,monthIs.toString,yearIs.toString)));
+    isTrue = !(checkPalindrome(dateCombination(dayToString(dayIs),monthToString(monthIs),yearIs.toString())));
     differenceOfDays++;
  }
- var newDate = dayIs.toString + monthIs.toString + yearIs.toString;
- return [ newDate, differenceOfDays ];
+ 
+ return [ dayToString(dayIs)+"-"+monthToString(monthIs)+"-"+yearIs.toString(), differenceOfDays ];
 }
 
 function checkLeapYear(yearIs){
@@ -92,4 +100,55 @@ function checkPalindrome(combination){
        
 }
 return isTrue;
+}
+
+function dayToString(day){
+    if(day<10){
+        return "0" + day
+    }
+    else{
+        return day.toString()
+    }
+}
+function monthToString(month){
+    if(month < 10 ){
+        return "0" + month;
+    }
+    else{
+        return month.toString();
+    }
+}
+
+
+function possiblePalindromeInPast(date)
+{ 
+ var   dayIs = Number(date.day);
+ var   monthIs = Number(date.month);
+ var   yearIs = Number(date.year);
+ var  isTrue = true;
+ var differenceOfDays = 0;
+ 
+ var daysInMonth = checkLeapYear(yearIs);
+ while(isTrue){
+     dayIs = dayIs - 1;
+     if(dayIs <= 0){
+         if(monthIs > 1){
+            dayIs = daysInMonth[monthIs -2];
+         }
+         else{
+             dayIs = 31;
+         }
+         
+         monthIs = monthIs -1;
+         if(monthIs <= 0){
+             monthIs = 12;
+             yearIs = yearIs -1 ;
+             daysInMonth = checkLeapYear(yearIs);
+         }
+     }
+     
+     isTrue = !(checkPalindrome(dateCombination(dayToString(dayIs),monthToString(monthIs),yearIs.toString())));
+     differenceOfDays++ ;
+ }
+ return [ dayToString(dayIs)+"-"+monthToString(monthIs)+"-"+yearIs.toString(),differenceOfDays];
 }
